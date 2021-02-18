@@ -49,16 +49,18 @@
 
             // Invalid URLs includes invalid issue numbers, issue titles that are not URLs, and recursive destination URLs
             var isInvalidUrl =
-              !isUrl(title);
+              isUrl(title);
 
             if (isInvalidUrl) {
-              location.replace(homepage);
-            } else {
               location.replace(title);
+              
+            } else {
+
+              location.replace(homepage);
             }
-          } catch (e) {
+          } /* catch (e) {
             location.replace(homepage);
-          }
+          } */
         };
 
         xhr.onerror = function () {
