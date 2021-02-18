@@ -47,6 +47,7 @@
               !title ||
               !isUrl(title) ||
               url.hostname === location.hostname;
+            console.log(title);
 
             if (isInvalidUrl) {
               location.replace(homepage);
@@ -64,7 +65,7 @@
         xhr.open("GET", GITHUB_ISSUES_LINK + issueNumber);
         xhr.send(); */
       }
-console.log(title);
+
       redirect();
     </script>
   </head>
