@@ -8,9 +8,9 @@
        * Configuration goes here
        */
       // Format: https://api.github.com/repos/{owner}/{repo}/issues/
-      var GITHUB_ISSUES_LINK = "https://api.github.com/repos/gorkemgurel/gh-pages-url-shortener/issues/";
-      //  "https://api.github.com/repos/nelsontky/gh-pages-url-shortener-db/issues/";
-      var PATH_SEGMENTS_TO_SKIP = 2;
+      var GITHUB_ISSUES_LINK =
+        "https://api.github.com/repos/gorkemgurel/gh-pages-url-shortener/issues/";
+      var PATH_SEGMENTS_TO_SKIP = 1;
 
       /**
        * DO NOT TOUCH ANYTHING BELOW THIS COMMENT UNLESS YOU KNOW WHAT YOU ARE DOING
@@ -28,11 +28,13 @@
           PATH_SEGMENTS_TO_SKIP + 1
         ];
         var homepage =
+          location.protocol +
+          "//" +
           location.hostname +
           (location.port ? ":" + location.port : "") +
           "/" +
           location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
-        console.log(homepage);
+
         var xhr = new XMLHttpRequest();
 
         xhr.onload = function () {
@@ -40,14 +42,17 @@
             var payload = JSON.parse(xhr.response);
             var message = payload.message;
             var title = payload.title;
-            
+
+            // Workaround IE 11 lack of support for new URL()
+            var url = document.createElement("a");
+            url.setAttribute("href", title);
+
             // Invalid URLs includes invalid issue numbers, issue titles that are not URLs, and recursive destination URLs
             var isInvalidUrl =
               message === "Not Found" ||
               !title ||
               !isUrl(title) ||
               url.hostname === location.hostname;
-            console.log(title);
 
             if (isInvalidUrl) {
               location.replace(homepage);
@@ -59,11 +64,11 @@
           }
         };
 
-      /*  xhr.onerror = function () {
+        xhr.onerror = function () {
           location.replace(homepage);
         };
         xhr.open("GET", GITHUB_ISSUES_LINK + issueNumber);
-        xhr.send(); */
+        xhr.send();
       }
 
       redirect();
