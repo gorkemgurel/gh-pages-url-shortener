@@ -33,7 +33,6 @@
           "/" +
           location.pathname.split("/")[PATH_SEGMENTS_TO_SKIP];
         console.log(homepage);
-/*
         var xhr = new XMLHttpRequest();
 
         xhr.onload = function () {
@@ -41,11 +40,7 @@
             var payload = JSON.parse(xhr.response);
             var message = payload.message;
             var title = payload.title;
-
-            // Workaround IE 11 lack of support for new URL()
-            var url = document.createElement("a");
-            url.setAttribute("href", title);
-
+            
             // Invalid URLs includes invalid issue numbers, issue titles that are not URLs, and recursive destination URLs
             var isInvalidUrl =
               message === "Not Found" ||
@@ -63,7 +58,7 @@
           }
         };
 
-        xhr.onerror = function () {
+      /*  xhr.onerror = function () {
           location.replace(homepage);
         };
         xhr.open("GET", GITHUB_ISSUES_LINK + issueNumber);
