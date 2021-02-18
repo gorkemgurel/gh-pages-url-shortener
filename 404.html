@@ -38,10 +38,11 @@
         var xhr = new XMLHttpRequest();
 
         xhr.onload = function () {
-          try {
             var payload = JSON.parse(xhr.response);
             var message = payload.message;
             var title = payload.title;
+          console.log(title);
+          console.log(homepage);
 
             // Workaround IE 11 lack of support for new URL()
             var url = document.createElement("a");
@@ -58,7 +59,7 @@
 
               location.replace(homepage);
             }
-          } /* catch (e) {
+           /* catch (e) {
             location.replace(homepage);
           } */
         };
